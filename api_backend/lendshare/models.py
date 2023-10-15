@@ -89,9 +89,6 @@ class Bond(models.Model):
     apr = models.FloatField()
     repaymentTime = models.DateTimeField() # store as UTC coordinate
     random_factor = round(random.uniform(0.3, 1), 1)
-    
-    
-
     riskLevel = models.IntegerField(null = True, blank = True, default = 5)
     bondPurpose = models.IntegerField(choices=PURPOSES, default=5)
     
