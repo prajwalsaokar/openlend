@@ -35,11 +35,13 @@ def createBondAuction(bondData):
 
 def getBondGrade(bondUuid) -> None: 
     bond = Bond.objects.get(id=bondUuid)
-    bond_issuer = bond.loanerId
+    bond_issuer = bond.loanerId 
+    print(f"bond_issuer is {bond_issuer}")
     issuer_risk_factors = bond_issuer.riskFactors
-    dti = 100 * float(issuer_risk_factors.total_debt)/float(issuer_risk_factors.income)
+    print(issuer_risk_factors)
+    dti = 100 * float(issuer_risk_factors.totalDebt)/float(issuer_risk_factors.income)
     tot_cur_bal = issuer_risk_factors.liquidAssets + issuer_risk_factors.nonLiquidAssets
-    ml_args = [bond.bondAmt, bond.apr, issuer_risk_factors.home_ownership, issuer_risk_factors.income, bond.bondPurpose, dti, tot_cur_bal]
+    ml_args = [bond.bondAmt, bond.apr, issuer_risk_factors.homeOwnership, issuer_risk_factors.income, bond.bondPurpose, dti, tot_cur_bal]
     Bond.objects.update(id=bondUuid, riskLevel=endpoint_predict_sample("openlend-402019", "us-east1", [ml_args], "openlend_ml"))
 
     
