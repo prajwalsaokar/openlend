@@ -1,6 +1,7 @@
 from .models import Bond, CustomUser
 import requests
 import os
+from google.cloud import aiplatform
 
 purposeMap = [
     "I am requesting a loan to consolidate all my current debts into a single loan",
@@ -39,9 +40,15 @@ def getBondGrade(bondUuid):
     dti = 100 * float(issuer_risk_factors.total_debt)/float(issuer_risk_factors.income)
     tot_cur_bal = issuer_risk_factors.liquidAssets + issuer_risk_factors.nonLiquidAssets
     ml_args = [bond.bondAmt, bond.apr, issuer_risk_factors.home_ownership, issuer_risk_factors.income, bond.bondPurpose, dti, tot_cur_bal]
-    json_ml_args = dumps(
-        dict(
-            instances=[ml_args]
-        )
-    )
-    # TODO: make api call with json_ml_args
+    return endpoint_predict_sample("openlend-402019", "us-east1", [ml_args], "openlend_ml")
+
+def endpoint_predict_sample(
+    project: str, location: str, instances: list, endpoint: str
+):
+    aiplatform.init(project=project, location=location)
+
+    endpoint = aiplatform.Endpoint(endpoint)
+
+    prediction = endpoint.predict(instances=instances)
+    # print(prediction)
+    return prediction
