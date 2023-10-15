@@ -1,7 +1,10 @@
 from .models import Bond, CustomUser
 import requests
 import os
+from dotenv import load_dotenv
 from google.cloud import aiplatform
+
+load_dotenv()
 
 purposeMap = [
     "I am requesting a loan to consolidate all my current debts into a single loan",
@@ -20,7 +23,6 @@ purposeMap = [
     "I need a loan to fulfill my first purchasing order with inventory, equipment, and to expand with ads, increasing exposure for my business"
 ]
 
-BROKER_URL = "http://localhost:8001/"
 
 def getPurchasedBondsById(uuid):
     return Bond.objects.filter(purchaserId=uuid)
