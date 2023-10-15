@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from rest_framework import serializers, generics 
 from lendshare.models import CustomUser, Bond
 from lendshare.serializers import UserSerializer, BondSerializer, RegisterSerializer, StripeSerializer
-from .services import purposeMap, getPurchasedBondsById, getIssuedBondsById, createBondAuction
+from .services import purposeMap, getPurchasedBondsById, getIssuedBondsById, createBondAuction, getBondGrade
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -105,7 +105,6 @@ class StripeCheckoutSuccess(APIView):
     def post(self,request, pk):
         try:
             body = loads(request.body)
-            # TODO add payout here
             bond = Bond.objects.update(id=pk, purchaserId=body["purchaserId"])
         except Exception as e:
             return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -145,6 +144,7 @@ class BondCreateView(generics.CreateAPIView):
                 "sellerId": bond.loanerId,
                 "maxApr": bond.apr,
             })
+        getBondGrade(bond.id)
         createBondAuction(
             {
                 "bondId" : str(bond.id),
@@ -152,6 +152,7 @@ class BondCreateView(generics.CreateAPIView):
                 "maxApr": bond.apr,
             }
         )
+        
         return Response("Created Bond", status=status.HTTP_200_OK)
 
 class AuctionHandlingCreate(APIView):

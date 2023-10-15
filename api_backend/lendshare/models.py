@@ -3,7 +3,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
 import random
-
+from json import dumps
 
 
 class RiskFactor(models.Model):
@@ -89,8 +89,9 @@ class Bond(models.Model):
     apr = models.FloatField()
     repaymentTime = models.DateTimeField() # store as UTC coordinate
     random_factor = round(random.uniform(0.3, 1), 1)
-    riskLevel = models.FloatField(null = True, blank = True, default = random_factor)
+    riskLevel = models.IntegerField(null = True, blank = True, default = 5)
     bondPurpose = models.IntegerField(choices=PURPOSES, default=5)
+    
+    
+
     purchaseStatus = models.IntegerField(choices=BooleanValues, default = 0)
-
-

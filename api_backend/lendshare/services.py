@@ -1,6 +1,7 @@
 from .models import Bond, CustomUser
 import requests
 import os
+from google.cloud import aiplatform
 
 purposeMap = [
     "I am requesting a loan to consolidate all my current debts into a single loan",
@@ -31,3 +32,27 @@ def getIssuedBondsById(uuid):
 def createBondAuction(bondData):
     AUCTION_URL = BROKER_URL + "create_auction"
     requests.post(AUCTION_URL,json = bondData)
+
+def getBondGrade(bondUuid) -> None: 
+    bond = Bond.objects.get(id=bondUuid)
+    bond_issuer = bond.loanerId 
+    print(f"bond_issuer is {bond_issuer}")
+    issuer_risk_factors = bond_issuer.riskFactors
+    print(issuer_risk_factors)
+    dti = 100 * float(issuer_risk_factors.totalDebt)/float(issuer_risk_factors.income)
+    tot_cur_bal = issuer_risk_factors.liquidAssets + issuer_risk_factors.nonLiquidAssets
+    ml_args = [bond.bondAmt, bond.apr, issuer_risk_factors.homeOwnership, issuer_risk_factors.income, bond.bondPurpose, dti, tot_cur_bal]
+    Bond.objects.update(id=bondUuid, riskLevel=endpoint_predict_sample("openlend-402019", "us-east1", [ml_args], "openlend_ml"))
+
+    
+
+def endpoint_predict_sample(
+    project: str, location: str, instances: list, endpoint: str
+) -> int:
+    aiplatform.init(project=project, location=location)
+
+    endpoint = aiplatform.Endpoint(endpoint)
+
+    prediction = endpoint.predict(instances=instances)
+    # print(prediction)
+    return prediction
