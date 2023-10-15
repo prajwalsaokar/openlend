@@ -1,10 +1,10 @@
 from .models import Bond, CustomUser
 import requests
-import os
-from dotenv import load_dotenv
+from os import getenv
 from google.cloud import aiplatform
 
-load_dotenv()
+BROKER_URL = getenv('BROKER_URL')
+
 
 purposeMap = [
     "I am requesting a loan to consolidate all my current debts into a single loan",

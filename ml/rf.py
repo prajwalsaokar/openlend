@@ -7,7 +7,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, ConfusionMatrixDisplay, f1_score
 from sklearn.model_selection import RandomizedSearchCV, train_test_split
-from scipy.stats import randint
 import pickle
 import joblib
 

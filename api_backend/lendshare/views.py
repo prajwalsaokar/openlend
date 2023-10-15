@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.cache import cache
 import stripe
-import os
+from os import getenv
 from dotenv import load_dotenv
 from rest_framework import serializers, generics 
 from lendshare.models import CustomUser, Bond
@@ -29,6 +29,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import requests
 
+STRIPE_API_KEY = getenv('STRIPE_API_KEY')
+BROKER_URL = getenv('BROKER_URL')
 
 class UserList(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all()
@@ -71,7 +73,6 @@ class StripeCheckout(APIView):
 
     def post(self, request):
         try:
-            STRIPE_API_KEY = "sk_test_51O1C3jJZqzF5oB4gnxPhJWqJY93cJHfBEIoRojQC4crr2vA9pljiRtI9qPbtXBkepsFCdbVNFe7Kww22AnrgYesL00hE0JVlTe"
             print(STRIPE_API_KEY)
             stripe.api_key = STRIPE_API_KEY
             print(request.body)
@@ -118,7 +119,6 @@ class StripeCheckoutCancel(APIView):
 
 class AuctionHandlingGet(APIView):
     def get(request):
-        BROKER_URL = "http://localhost:8001/"
         bonds = Bond.objects.filter(purchaseStatus=0)
         uuids = [bond.id for bond in bonds]
 
