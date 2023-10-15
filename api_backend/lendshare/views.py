@@ -105,7 +105,6 @@ class StripeCheckoutSuccess(APIView):
     def post(self,request, pk):
         try:
             body = loads(request.body)
-            # TODO add payout here
             bond = Bond.objects.update(id=pk, purchaserId=body["purchaserId"])
         except Exception as e:
             return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
