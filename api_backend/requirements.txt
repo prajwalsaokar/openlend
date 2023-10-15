@@ -5,4 +5,3 @@ pytz==2023.3.post1
 sqlparse==0.4.4
 typing_extensions==4.8.0
 google-cloud-aiplatform==1.35.0
-python-dotenv==0.0.0
