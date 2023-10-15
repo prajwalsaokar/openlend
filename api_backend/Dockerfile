@@ -17,4 +17,4 @@ EXPOSE 8000
 # copy project
 COPY . .
 
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "slap.wsgi:application"]
+CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "lendshare_backend.wsgi:application"]
