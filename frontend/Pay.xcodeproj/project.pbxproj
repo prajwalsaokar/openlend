@@ -54,9 +54,9 @@
 		8EC86EAB2ADB5F4200809D8E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8EC86EAD2ADB5F8200809D8E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		8EC86EAF2ADB60A600809D8E /* BondCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BondCell.swift; sourceTree = "<group>"; };
-		8EE197802ADB8BF500E6CB8B /* PresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PresentationController.swift; path = ../../Foci/Foci/Views/PresentationController.swift; sourceTree = "<group>"; };
-		8EE197812ADB8BF500E6CB8B /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OverlayView.swift; path = ../../Foci/Foci/Views/OverlayView.swift; sourceTree = "<group>"; };
-		8EE197822ADB8BF500E6CB8B /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverlayView.xib; path = ../../Foci/Foci/Views/OverlayView.xib; sourceTree = "<group>"; };
+		8EE197802ADB8BF500E6CB8B /* PresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		8EE197812ADB8BF500E6CB8B /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		8EE197822ADB8BF500E6CB8B /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
 		8EE197862ADBC66A00E6CB8B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8EE197882ADBD0F400E6CB8B /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
