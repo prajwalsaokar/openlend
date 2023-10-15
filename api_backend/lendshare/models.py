@@ -3,7 +3,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
 import random
-
+from json import dumps
 
 
 class RiskFactor(models.Model):
@@ -89,8 +89,26 @@ class Bond(models.Model):
     apr = models.FloatField()
     repaymentTime = models.DateTimeField() # store as UTC coordinate
     random_factor = round(random.uniform(0.3, 1), 1)
-    riskLevel = models.FloatField(null = True, blank = True, default = random_factor)
+    
+    
+
+    riskLevel = models.IntegerField(null = True, blank = True, default = 5)
     bondPurpose = models.IntegerField(choices=PURPOSES, default=5)
+    
+    # TODO: Use loaner id to get user object
+    
+    bond_issuer = None
+    issuer_risk_factors = CustomUser.riskFactors
+    dti = float(issuer_risk_factors.total_debt)/float(issuer_risk_factors.income)
+    tot_cur_bal = issuer_risk_factors.liquidAssets + issuer_risk_factors.nonLiquidAssets
+    ml_args = [bondAmt, apr, issuer_risk_factors.home_ownership, issuer_risk_factors.income, bondPurpose, tot_cur_bal]
+    json_ml_args = dumps(
+        dict(
+            instances=[ml_args]
+        )
+    )
+    # TODO: make api call with json_ml_args
+
     purchaseStatus = models.IntegerField(choices=BooleanValues, default = 0)
 
 
