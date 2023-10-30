@@ -47,10 +47,3 @@ OpenLend is an open-source project, and we welcome contributions from the commun
 ## Join the OpenLend Community
 
 Become a part of the OpenLend community and experience the future of lending. Connect with like-minded individuals, share your items, and borrow from others. OpenLend is here to empower you and create a more sustainable and collaborative world.
-
-## Contact Us
-
-If you have any questions or need assistance, please don't hesitate to reach out to our team at [email@example.com](mailto:email@example.com). We're here to help!
-
-
-Get ready to embark on a lending journey like never before with OpenLend. Start sharing, start borrowing, and start building a stronger community today!
